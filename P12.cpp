@@ -5,7 +5,8 @@ template <class X> void bubble(X *items,int count)
 {
 register int a,b; 
 X t;
-for(a=1; a<count; a++) for(b=count-1; b>=a; b--)
+for(a=1; a<count; a++)
+    for(b=count-1; b>=a; b--)
 if(items[b-1] > items[b])
 {
     // exchange elements
