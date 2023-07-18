@@ -4,12 +4,14 @@
 using namespace std; 
 int main()
 {
-ifstream in("C:\\file1.txt"); // input if(!in) 
+ifstream in("C:\\file1.txt"); // 
+  input if(!in) 
 {
 cout << "Cannot open input file.\n"; 
 return 1;
 }
-ofstream out("TextFile1.txt"); // output if(!out) 
+ofstream out("TextFile1.txt"); // 
+  output if(!out) 
 {
 cout << "Cannot open output file.\n"; 
 return 1;
