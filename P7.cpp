@@ -1,87 +1,66 @@
-#include <iostream> 
+#include<iostream>
+#include<string>
 using namespace std;
-struct date
-{
-int d; 
-int m; 
-int y;
+
+class patients{
+    private:
+        string name;
+        int age;
+        int room_no;
+    public:
+        void getInfo();
+        int getAge() { return age; }
+        void display();
 };
 
-class hospital
-{
-char name[100]; 
-struct date d_adm; 
-struct date d_dis;
-protected:
-int age;
-public:
-void getdata()
-{
-cout<<"Enter name of the patient: "; cin>>name;
-cout<<"Enter age: "; cin>>age;
-cout<<"Enter date of admission: "; cin>>d_adm.d>>d_adm.m>>d_adm.y; cout<<"Enter date of discharge: "; cin>>d_dis.d>>d_dis.m>>d_dis.y;
-}
-void display()
-{
-cout<<name<<"\t"; cout<<age<<"\t";
-cout<<d_adm.d<<'-'<<d_adm.m<<'-'<<d_adm.y<<"\t \t"; cout<<d_dis.d<<'-'<<d_dis.m<<'-'<<d_dis.y;
-}
+class child: public patients {
+    private:
+        int pediatric;
+    public:
+        child(){
+            pediatric = 0;
+        }
+        void check(int i){
+            if (i < 12)
+                pediatric = 1;
+        }
 };
 
-class pediatric_patient:public hospital
-{
-char vaccine[20];
-public:
-void get()
-{
-getdata();
-cout<<"enter the name of vaccine to be given \n"; 
-cin>>vaccine;
+void patients::getInfo(){
+    cin.ignore();
+    cout<<"Enter name: ";
+    getline(cin,name);
+    cout<<"Enter age: ";
+    cin>>age;
+    cout<<"Enter room: ";
+    cin>>room_no;
 }
-void put()
-{
-if(age<12)
-{
-display(); 
-cout<<"\t"<<"\t"; 
-cout<<vaccine; 
-cout<<"\n";
-}
-else
-cout<<"age greater than 12 not a pediatric patient";
-}
-};
-int main()
-{
-hospital h[5]; int n;
-cout<<"Enter the number of patients \n"; 
-cin>>n;
-for(int i=0;i<n;i++)
-{
-h[i].getdata();
-}
-cout<<"Patient database \n";
-cout<<"NAME" <<"\t" <<"AGE" <<"\t" <<"DATE_OF_ADMISSION "<<"\t"
-<<"DATE_OF_DISCHARGE \n";
-for(int i=0;i<n;i++)
-{
-h[i].display(); cout<<"\n";
 
+void patients::display(){
+    cout<<"\t"<<name<<"\t"<<age<<"\t"<<room_no;
+    if(age < 12)
+        cout<<"\tYes"<<endl;
+    else
+        cout<<"\tNo"<<endl;
+    
 }
-pediatric_patient a1[5];
-cout<<"Enter the number of pediatric patients \n"; 
-cin>>n;
-for(int i=0;i<n;i++)
-{
-a1[i].get();
 
-}
-cout<<"pediatric Patient database \n";
-cout<<"NAME" <<"\t" <<"AGE" <<"\t" <<"DATE_OF_ADMISSION "<<"\t"
-<<"DATE_OF_DISCHARGE"<<"\t"<<"VACCINE \n";
-for(int i=0;i<n;i++)
-{
-a1[i].put();
-}
-return 0;
+int main(void){
+    int n;
+    cout<<"Enter number of patients: ";
+    cin>>n;
+    child ob[n], *p;
+    for(int i=0; i<n;i++){
+        p = &ob[i];
+        cout<<"Enter details of "<<i+1<<" patient"<<endl;
+        p->getInfo();
+        p->check(p->getAge());
+    }
+
+    cout<<"The patient database is: \n\n";
+    cout<<"\tName\tAge\tRoom\tChild?"<<endl;
+    for(int j=0;j<n;j++){
+        p = &ob[j];
+        p->display();
+    }
 }
